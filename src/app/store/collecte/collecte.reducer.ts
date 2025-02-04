@@ -24,14 +24,11 @@ export const collecteReducer = createReducer(
   on(saveCollecteData, (state, { collecteData }) => {
     console.log('Collectes before adding:', state.collectes);
 
-    // Add the new collecte to the existing array
     const updatedCollectes = [...state.collectes, collecteData];
     console.log('Updated Collectes:', updatedCollectes);
 
-    // Save the updated collectes to localStorage
     localStorage.setItem('collecteData', JSON.stringify(updatedCollectes));
 
-    // Return the new state with updated collectes
     return { collectes: updatedCollectes };
   })
 );
