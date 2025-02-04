@@ -1,6 +1,8 @@
 import { FormsModule } from '@angular/forms';
-import { LocalStorageService } from './../../../services/local-storage/local-storage.service';
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { saveCollecteData } from '../../../store/collecte/collecte.actions';
+import { CollecteItem } from '../../../store/collecte/collecte.reducer';
 
 @Component({
   selector: 'app-demande-collecte',
@@ -16,11 +18,11 @@ export class DemandeCollecteComponent {
   photos: FileList | null = null;
   notes: string = '';
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private store: Store) {}
 
-  // Fonction pour enregistrer les données dans le localStorage via le service
+  // Function to save data in the store via NGRX
   saveData() {
-    const collecteData = {
+    const collecteData: CollecteItem = {
       wasteType: this.wasteType,
       weight: this.weight,
       address: this.address,
@@ -29,15 +31,18 @@ export class DemandeCollecteComponent {
       notes: this.notes
     };
 
-    // Enregistrer les données dans le localStorage
-    this.localStorageService.saveData('collecteData', collecteData);
-    alert('Les données ont été enregistrées dans le localStorage!');
+    // Dispatch the action to save the data in the store
+    console.log('Saving collecte data:', collecteData);
+    this.store.dispatch(saveCollecteData({ collecteData }));
+
+    // Alert user
+    alert('La collecte a été ajoutée avec succès!');
   }
 
-  // Fonction pour soumettre le formulaire
+  // Function to submit the form
   onSubmit() {
     this.saveData();
-    // Réinitialiser le formulaire après soumission
+    // Reset form after submission
     this.wasteType = '';
     this.weight = 0;
     this.address = '';
