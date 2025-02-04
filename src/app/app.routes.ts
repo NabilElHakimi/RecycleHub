@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { DemandeCollecteComponent } from './pages/individual/demande-collecte/demande-collecte.component';
+import { CollectsComponent } from './pages/individual/collects/collects.component';
 
 export const routes: Routes = [
 
@@ -11,6 +12,7 @@ export const routes: Routes = [
     children : [
        {path: '', redirectTo: 'home', pathMatch: 'full'},
        {path : 'demande-collecte' , component : DemandeCollecteComponent },
+       {path : 'collects' , component : CollectsComponent },
     ] }
 
 ];

@@ -107,3 +107,7 @@ label {
   background: #fff;
 }
 
+.router-link-active {
+  background-color: #2f6d31; /* Example active background color */
+  color: white;
+}
