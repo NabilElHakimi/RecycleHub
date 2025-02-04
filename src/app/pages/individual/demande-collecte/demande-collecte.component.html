@@ -73,12 +73,13 @@
       <label for="photos" class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Waste Photos (Optional)</label>
       <input
         type="file"
-        id="photos"
-        name="photos"
-        [(ngModel)]="photos"
-        multiple
-        class="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-      />
+        accept="image/*"
+        (change)="onFileSelected($event)"
+        required
+      >
+
+      <img *ngIf="imageBase64" [src]="imageBase64" class="preview-image">
+
     </div>
 
     <!-- Additional Notes -->

@@ -1,9 +1,16 @@
-import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { saveCollecteData } from '../../../store/collecte/collecte.actions';
-import { CollecteItem } from '../../../store/collecte/collecte.reducer';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+interface CollecteItem {
+  id: number;
+  wasteType: string;
+  weight: number;
+  address: string;
+  datetime: string;
+  image?: string; // Rendue optionnelle avec '?'
+  notes: string;
+}
 
 @Component({
   selector: 'app-demande-collecte',
@@ -12,47 +19,69 @@ import { CommonModule } from '@angular/common';
   imports: [FormsModule, CommonModule]
 })
 export class DemandeCollecteComponent {
-  wasteType: string = '';
-  weight: number = 0;
-  address: string = '';
-  datetime: string = '';
-  photos: FileList | null = null;
-  notes: string = '';
+  wasteType = '';
+  weight = 0;
+  address = '';
+  datetime = '';
+  imageBase64: string | null = null; // Changé en null
+  notes = '';
   toastMessage: string | null = null;
 
-  constructor(private store: Store) {}
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.convertToBase64(file);
+    } else {
+      this.imageBase64 = null; // Réinitialiser si l'utilisateur annule la sélection
+    }
+  }
+
+  private convertToBase64(file: File) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageBase64 = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
 
   saveData() {
     const collecteData: CollecteItem = {
-      id: Date.now(), 
+      id: Date.now(),
       wasteType: this.wasteType,
       weight: this.weight,
       address: this.address,
       datetime: this.datetime,
-      photos: this.photos,
       notes: this.notes
     };
 
-    console.log('Saving collecte data:', collecteData);
-    this.store.dispatch(saveCollecteData({ collecteData }));
-    this.showToast('La collecte a été ajoutée avec succès!');
+    // Ajouter l'image seulement si elle existe
+    if (this.imageBase64) {
+      collecteData.image = this.imageBase64;
+    }
+
+    const existingData = JSON.parse(localStorage.getItem('collecteData') || '[]');
+    existingData.push(collecteData);
+    localStorage.setItem('collecteData', JSON.stringify(existingData));
+
+    this.showToast('Collecte sauvegardée avec succès!');
+    this.resetForm();
   }
 
-  // Rest of the component remains the same
-  showToast(message: string) {
-    this.toastMessage = message;
-    setTimeout(() => {
-      this.toastMessage = null;
-    }, 3000);
-  }
-
-  onSubmit() {
-    this.saveData();
+  private resetForm() {
     this.wasteType = '';
     this.weight = 0;
     this.address = '';
     this.datetime = '';
-    this.photos = null;
+    this.imageBase64 = null;
     this.notes = '';
+  }
+
+  showToast(message: string) {
+    this.toastMessage = message;
+    setTimeout(() => this.toastMessage = null, 3000);
+  }
+
+  onSubmit() {
+    this.saveData(); // Plus de vérification de l'image
   }
 }
