@@ -1,0 +1,97 @@
+<h2 class="text-3xl font-bold text-gray-900 dark:text-white text-start">
+  Collection Request
+</h2>
+
+<div class="mt-5 max-w-full mx-auto p-6 bg-white shadow-md rounded-lg dark:bg-gray-800">
+  <!-- Image Header -->
+  <div class="w-full flex justify-center mb-4">
+    <img src="/assets/images/recyclage-image-1.png" alt="Collection Request" class="w-32 h-32 object-cover rounded-full shadow-md">
+  </div>
+
+  <form class="space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Waste Type -->
+      <div>
+        <label for="wasteType" class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Waste Type</label>
+        <select
+          id="wasteType"
+          name="wasteType"
+          class="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="plastic">Plastic</option>
+          <option value="glass">Glass</option>
+          <option value="paper">Paper</option>
+          <option value="metal">Metal</option>
+        </select>
+      </div>
+
+      <!-- Waste Weight -->
+      <div>
+        <label for="weight" class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Waste Weight (kg)</label>
+        <input
+          type="number"
+          id="weight"
+          name="weight"
+          min="1"
+          required
+          class="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+
+      <!-- Collection Address -->
+      <div class="md:col-span-2">
+        <label for="address" class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Collection Address</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          required
+          class="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+
+      <!-- Date and Time -->
+      <div class="md:col-span-2">
+        <label for="datetime" class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Date & Time Slot</label>
+        <input
+          type="datetime-local"
+          id="datetime"
+          name="datetime"
+          required
+          class="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+    </div>
+
+    <!-- Waste Photos -->
+    <div>
+      <label for="photos" class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Waste Photos (Optional)</label>
+      <input
+        type="file"
+        id="photos"
+        name="photos"
+        multiple
+        class="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      />
+    </div>
+
+    <!-- Additional Notes -->
+    <div>
+      <label for="notes" class="block text-sm text-gray-700 dark:text-gray-300 mb-1">Additional Notes (Optional)</label>
+      <textarea
+        id="notes"
+        name="notes"
+        rows="3"
+        class="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      ></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="w-full bg-blue-600 text-white py-2 text-sm rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 dark:bg-blue-500 dark:hover:bg-blue-400 dark:focus:ring-blue-500"
+    >
+      Submit Request
+    </button>
+  </form>
+</div>
