@@ -3,12 +3,13 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { saveCollecteData } from '../../../store/collecte/collecte.actions';
 import { CollecteItem } from '../../../store/collecte/collecte.reducer';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-demande-collecte',
   templateUrl: './demande-collecte.component.html',
   styleUrls: ['./demande-collecte.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule , CommonModule]
 })
 export class DemandeCollecteComponent {
   wasteType: string = '';
@@ -17,10 +18,11 @@ export class DemandeCollecteComponent {
   datetime: string = '';
   photos: FileList | null = null;
   notes: string = '';
+  toastMessage: string | null = null;  // Variable pour le message du toast
 
   constructor(private store: Store) {}
 
-  // Function to save data in the store via NGRX
+  // Fonction pour sauvegarder les données dans le store via NGRX
   saveData() {
     const collecteData: CollecteItem = {
       wasteType: this.wasteType,
@@ -31,18 +33,26 @@ export class DemandeCollecteComponent {
       notes: this.notes
     };
 
-    // Dispatch the action to save the data in the store
+    // Dispatch l'action pour sauvegarder les données dans le store
     console.log('Saving collecte data:', collecteData);
     this.store.dispatch(saveCollecteData({ collecteData }));
 
-    // Alert user
-    alert('La collecte a été ajoutée avec succès!');
+    // Afficher le message du toast
+    this.showToast('La collecte a été ajoutée avec succès!');
   }
 
-  // Function to submit the form
+  // Fonction pour afficher le toast
+  showToast(message: string) {
+    this.toastMessage = message;
+    setTimeout(() => {
+      this.toastMessage = null;  // Masquer le toast après 3 secondes
+    }, 3000);
+  }
+
+  // Fonction pour soumettre le formulaire
   onSubmit() {
     this.saveData();
-    // Reset form after submission
+    // Réinitialiser le formulaire après la soumission
     this.wasteType = '';
     this.weight = 0;
     this.address = '';
