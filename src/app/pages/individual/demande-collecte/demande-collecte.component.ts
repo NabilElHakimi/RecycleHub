@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-demande-collecte',
   templateUrl: './demande-collecte.component.html',
   styleUrls: ['./demande-collecte.component.css'],
-  imports: [FormsModule , CommonModule]
+  imports: [FormsModule, CommonModule]
 })
 export class DemandeCollecteComponent {
   wasteType: string = '';
@@ -18,13 +18,13 @@ export class DemandeCollecteComponent {
   datetime: string = '';
   photos: FileList | null = null;
   notes: string = '';
-  toastMessage: string | null = null;  // Variable pour le message du toast
+  toastMessage: string | null = null;
 
   constructor(private store: Store) {}
 
-  // Fonction pour sauvegarder les données dans le store via NGRX
   saveData() {
     const collecteData: CollecteItem = {
+      id: Date.now(), 
       wasteType: this.wasteType,
       weight: this.weight,
       address: this.address,
@@ -33,26 +33,21 @@ export class DemandeCollecteComponent {
       notes: this.notes
     };
 
-    // Dispatch l'action pour sauvegarder les données dans le store
     console.log('Saving collecte data:', collecteData);
     this.store.dispatch(saveCollecteData({ collecteData }));
-
-    // Afficher le message du toast
     this.showToast('La collecte a été ajoutée avec succès!');
   }
 
-  // Fonction pour afficher le toast
+  // Rest of the component remains the same
   showToast(message: string) {
     this.toastMessage = message;
     setTimeout(() => {
-      this.toastMessage = null;  // Masquer le toast après 3 secondes
+      this.toastMessage = null;
     }, 3000);
   }
 
-  // Fonction pour soumettre le formulaire
   onSubmit() {
     this.saveData();
-    // Réinitialiser le formulaire après la soumission
     this.wasteType = '';
     this.weight = 0;
     this.address = '';

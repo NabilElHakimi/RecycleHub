@@ -34,7 +34,7 @@ export class CollectsComponent implements OnInit {
     this.darkMode = darkModeSetting === 'enabled';
   }
 
-  
+
 
   showConfirmationPopup(item: any) {
     this.itemToDelete = item;
@@ -82,10 +82,10 @@ export class CollectsComponent implements OnInit {
 
   deleteItem() {
     if (this.itemToDelete) {
-      const index = this.collects.indexOf(this.itemToDelete);
+      const index = this.collects.findIndex(item => item.id === this.itemToDelete);
+
       if (index !== -1) {
         this.collects.splice(index, 1);
-
         localStorage.setItem('collecteData', JSON.stringify(this.collects));
       }
 

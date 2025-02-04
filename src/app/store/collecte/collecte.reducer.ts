@@ -3,6 +3,7 @@ import { saveCollecteData } from './collecte.actions';
 
 // Interface for CollecteItem
 export interface CollecteItem {
+  id : number ,
   wasteType: string;
   weight: number;
   address: string;
@@ -11,10 +12,8 @@ export interface CollecteItem {
   notes: string;
 }
 
-// Retrieve the saved collectes from localStorage
 const storedCollectes: CollecteItem[] = JSON.parse(localStorage.getItem('collecteData') || '[]');
 
-// Initial State
 export const initialState = {
   collectes: storedCollectes
 };
