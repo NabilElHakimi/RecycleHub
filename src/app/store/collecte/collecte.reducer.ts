@@ -32,3 +32,4 @@ export const collecteReducer = createReducer(
     return { collectes: updatedCollectes };
   })
 );
+
