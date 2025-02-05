@@ -9,10 +9,23 @@ import { DarkLightService } from '../../services/dark-light-mode/dark-light.serv
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+
+   getNumberForPartucular(){
+        const numberOfCollets = localStorage.getItem('collecteData');
+        if (numberOfCollets) {
+          return JSON.parse(numberOfCollets).length;
+        }
+        return 0;
+   }
+
+   
   constructor(private darkLightService: DarkLightService
   ) {}
 
   toggleDarkMode(): void {
     this.darkLightService.toggleDarkMode();
   }
+
+
+
 }

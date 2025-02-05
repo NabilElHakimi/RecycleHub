@@ -15,6 +15,7 @@ export class CollectsComponent implements OnInit {
   itemToDelete: any;
   darkMode: boolean = false;
 
+  
   ngOnInit() {
     this.loadCollects();
     this.checkDarkMode();
