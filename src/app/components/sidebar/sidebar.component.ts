@@ -10,15 +10,11 @@ import { DarkLightService } from '../../services/dark-light-mode/dark-light.serv
 })
 export class SidebarComponent {
 
-   getNumberForPartucular(){
-        const numberOfCollets = localStorage.getItem('collecteData');
-        if (numberOfCollets) {
-          return JSON.parse(numberOfCollets).length;
-        }
-        return 0;
-   }
+  getNumberForParticular(): number {
+    const numberOfCollets = localStorage.getItem('collecteData');
+    return numberOfCollets ? JSON.parse(numberOfCollets).length : 0;
+  }
 
-   
   constructor(private darkLightService: DarkLightService
   ) {}
 
