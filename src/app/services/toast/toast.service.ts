@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';  // Import BehaviorSubject
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ToastService {
-  private toastSubject = new BehaviorSubject<string | null>(null);  // Initialize BehaviorSubject with a default value of null
-  toastMessage$ = this.toastSubject.asObservable();  // Expose as an observable
+  private toastSubject = new BehaviorSubject<string | null>(null);
+  toastMessage$ = this.toastSubject.asObservable();
+
 
   constructor() {}
 
   showToast(message: string) {
-    this.toastSubject.next(message);  // Set the toast message
+    this.toastSubject.next(message);
 
-    // Hide the toast after 3 seconds
     setTimeout(() => {
-      this.toastSubject.next(null);  // Clear the toast message after 3 seconds
+      this.toastSubject.next(null);
     }, 3000);
   }
+
+
+
 }

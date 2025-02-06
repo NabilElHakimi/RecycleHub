@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { saveCollecteData } from './collecte.actions';
 
-// Interface for CollecteItem
 export interface CollecteItem {
   id : number ,
   wasteType: string;

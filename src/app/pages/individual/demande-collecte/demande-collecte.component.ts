@@ -8,7 +8,7 @@ interface CollecteItem {
   weight: number;
   address: string;
   datetime: string;
-  image?: string; // Rendue optionnelle avec '?'
+  image?: string;
   notes: string;
 }
 
@@ -18,12 +18,13 @@ interface CollecteItem {
   styleUrls: ['./demande-collecte.component.css'],
   imports: [FormsModule, CommonModule]
 })
+
 export class DemandeCollecteComponent {
   wasteType = '';
   weight = 0;
   address = '';
   datetime = '';
-  imageBase64: string | null = null; // Changé en null
+  imageBase64: string | null = null;
   notes = '';
   toastMessage: string | null = null;
 
@@ -32,7 +33,7 @@ export class DemandeCollecteComponent {
     if (file) {
       this.convertToBase64(file);
     } else {
-      this.imageBase64 = null; // Réinitialiser si l'utilisateur annule la sélection
+      this.imageBase64 = null;
     }
   }
 
@@ -54,7 +55,6 @@ export class DemandeCollecteComponent {
       notes: this.notes
     };
 
-    // Ajouter l'image seulement si elle existe
     if (this.imageBase64) {
       collecteData.image = this.imageBase64;
     }
@@ -82,6 +82,7 @@ export class DemandeCollecteComponent {
   }
 
   onSubmit() {
-    this.saveData(); // Plus de vérification de l'image
+    this.saveData();
   }
+
 }

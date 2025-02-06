@@ -5,6 +5,7 @@ import { DemandeCollecteComponent } from './pages/individual/demande-collecte/de
 import { CollectsComponent } from './pages/individual/collects/collects.component';
 import {HomeComponent} from './pages/home/home.component';
 import {ProfileComponent} from './pages/profile/profile.component';
+import {RegisterComponent} from './pages/auth/register/register.component';
 
 export const routes: Routes = [
 
@@ -17,6 +18,11 @@ export const routes: Routes = [
        {path : 'profile' , component : ProfileComponent },
        {path : 'collects' , component : CollectsComponent },
        {path : 'demand-collect' , component : DemandeCollecteComponent },
-    ] }
+    ]
+  },
+  {
+    path: 'register',
+    component : RegisterComponent
+  }
 
 ];
