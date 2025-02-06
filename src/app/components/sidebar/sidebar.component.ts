@@ -22,6 +22,4 @@ export class SidebarComponent {
     this.darkLightService.toggleDarkMode();
   }
 
-
-
 }

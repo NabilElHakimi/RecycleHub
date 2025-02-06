@@ -6,6 +6,7 @@ import { CollectsComponent } from './pages/individual/collects/collects.componen
 import {HomeComponent} from './pages/home/home.component';
 import {ProfileComponent} from './pages/profile/profile.component';
 import {RegisterComponent} from './pages/auth/register/register.component';
+import {LoginComponent} from './pages/auth/login/login.component';
 
 export const routes: Routes = [
 
@@ -23,6 +24,10 @@ export const routes: Routes = [
   {
     path: 'register',
     component : RegisterComponent
+  },
+  {
+    path: 'login',
+    component : LoginComponent
   }
 
 ];

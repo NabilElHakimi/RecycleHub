@@ -2,11 +2,12 @@ import {Component, Inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {UserInfo} from '../../../model/UserInfo';
+import {RouterLink} from '@angular/router';
 
 @Component({
 
   selector: 'app-register',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -15,6 +16,7 @@ export class RegisterComponent {
 
   name  = "";
   email  = "";
+  password  = "";
   telephone  = "";
   address  = "";
 
@@ -26,8 +28,10 @@ export class RegisterComponent {
     const userInfo : UserInfo =  {
       name : this.name ,
       email : this.email ,
+      password : this.password ,
       telephone : this.telephone,
-      address : this.address
+      address : this.address ,
+      create_at : new Date()
     }
 
     if (this.checkIfExisted(this.email)) {
@@ -39,7 +43,6 @@ export class RegisterComponent {
       console.log("User already exists!");
     }
 
-
   }
 
   onSubmit(){
@@ -48,11 +51,9 @@ export class RegisterComponent {
 
   checkIfExisted(email : string)  {
     const allUsers : UserInfo[] =  JSON.parse(localStorage.getItem("users") || '[]');
-    const userExiste = allUsers.find(user => user.email == email) || null;
-    if(userExiste != null) {
-      return false;
-    }
-    return true ;
+    const userExist = allUsers.find(user => user.email == email) || null;
+    return userExist == null;
+
   }
 
 
