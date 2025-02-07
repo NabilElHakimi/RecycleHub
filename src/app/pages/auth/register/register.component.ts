@@ -1,67 +1,44 @@
-import {Component, Inject} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {UserInfo} from '../../../model/UserInfo';
-import {RouterLink} from '@angular/router';
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { registerUser } from '../../../store/auth/user.actions';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { UserRegister } from '../../../model/UserRegister';
 
 @Component({
-
   selector: 'app-register',
-  imports: [FormsModule, CommonModule, RouterLink],
+  standalone: true,
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  imports: [
+    FormsModule,
+    RouterLink
+  ],
+  styleUrls: ['./register.component.css']
 })
-
 export class RegisterComponent {
+  name = "";
+  email = "";
+  password = "";
+  telephone = "";
+  address = "";
 
-  name  = "";
-  email  = "";
-  password  = "";
-  telephone  = "";
-  address  = "";
+  constructor(private store: Store) {}
 
-  register()
-  {
-
-    this.checkLocalStorage();
-
-    const userInfo : UserInfo =  {
-      name : this.name ,
-      email : this.email ,
-      password : this.password ,
-      telephone : this.telephone,
-      address : this.address ,
-      create_at : new Date()
+  onSubmit() {
+    if (!this.name || !this.email || !this.password || !this.telephone || !this.address) {
+      alert("Veuillez remplir tous les champs !");
+      return;
     }
 
-    if (this.checkIfExisted(this.email)) {
-      console.log("User does not exist, adding...");
-      let allUsers: UserInfo[] = JSON.parse(localStorage.getItem('users') || '[]');
-      allUsers.push(userInfo);
-      localStorage.setItem('users', JSON.stringify(allUsers));
-    } else {
-      console.log("User already exists!");
-    }
+    const newUser: UserRegister = {
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      telephone: this.telephone,
+      address: this.address,
+      create_at:new Date()
+    };
 
+    this.store.dispatch(registerUser({ user: newUser }));
   }
-
-  onSubmit(){
-    this.register()
-  }
-
-  checkIfExisted(email : string)  {
-    const allUsers : UserInfo[] =  JSON.parse(localStorage.getItem("users") || '[]');
-    const userExist = allUsers.find(user => user.email == email) || null;
-    return userExist == null;
-
-  }
-
-
-  checkLocalStorage(){
-    const users = localStorage.getItem('users');
-    if(users == null){
-      localStorage.setItem('users'  , "")
-    }
-  }
-
 }

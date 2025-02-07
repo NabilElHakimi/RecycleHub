@@ -1,28 +1,31 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {UserInfo} from '../../model/UserInfo';
-import {DatePipe} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectCurrentUser } from '../../store/auth/user.selectors';
+import { UserRegister } from '../../model/UserRegister';
+import { AppState } from '../../store/auth/app.state';
+import {DatePipe} from '@angular/common'; // Importer AppState
 
 @Component({
   selector: 'app-profile',
+  templateUrl: './profile.component.html',
   imports: [
     DatePipe
   ],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+  styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
 
-  constructor(private router : Router) {
-  }
+  userConnect: UserRegister | null = null;
 
-  userConnect : UserInfo =JSON.parse( localStorage.getItem('userConnect') || '[]')  ;
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit(): void {
-    const userConnect  = localStorage.getItem('userConnect') ;
-    if(userConnect == null ){
-      this.router.navigate(['/login'])
-    }
+    this.store.select(selectCurrentUser).subscribe(user => {
+      this.userConnect = user;
+      if (!user) {
+        this.router.navigate(['/login']);
+      }
+    });
   }
-
 }

@@ -1,82 +1,46 @@
 import { Component } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {Router, RouterLink} from '@angular/router';
-import {UserInfo} from '../../../model/UserInfo';
-import {UserLogin} from '../../../model/UserLogin';
-import {Observable} from 'rxjs';
-import {routes} from '../../../app.routes';
+import { Store } from '@ngrx/store';
+import { loginUser } from '../../../store/auth/user.actions';
+import { selectCurrentUser } from '../../../store/auth/user.selectors';
+import {AppState} from '../../../store/auth/app.state';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,
     RouterLink
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  email = "";
+  password = "";
+  users$;
 
-  constructor(private router : Router) {
-  }
+  constructor(private store: Store<AppState>, private router: Router) {
+    this.users$ = this.store.select(selectCurrentUser);
 
-  email = ""
-  password = ""
-
-
-
-  login(){
-
-    const loginUser : UserLogin = {
-      email : this.email ,
-      password : this.password
-    }
-
-    const  allUsers  : UserInfo[] = JSON.parse(localStorage.getItem('users') || '[]');
-    const userFind : UserInfo|null   = this.checkUserIfExist(this.email , this.password , allUsers);
-    if (userFind != null){
-      alert("Connected")
-      localStorage.setItem("userConnect" , JSON.stringify(userFind))
-      this.router.navigate(['/home']);
-    }
-
-    else {
-      alert("Not Connected")
-    }
-
-  }
-
-  onSubmit(){
-    this.login()
-    console.log(this.email)
-    console.log(this.password)
-  }
-
-  checkLocalStorage(){
-    const users = localStorage.getItem('users');
-    if(users == null){
-      localStorage.setItem('users'  , "")
-    }
-  }
-
-
-  checkUserIfExist (email : string , password:string , allUsers : UserInfo[]) : UserInfo | null{
-    let user :UserInfo|null  = null ;
-    allUsers.forEach(u=>
-    {
-      if(u.email == email){
-        if(u.password == password)
-        {
-           user = u ;
-        }
+    this.users$.subscribe(user => {
+      if (user) {
+        this.router.navigate(['/home']);
       }
-    })
-
-    return user ;
+    });
   }
 
+  login() {
+    if (!this.email || !this.password) {
+      alert("Veuillez remplir tous les champs !");
+      return;
+    }
+    this.store.dispatch(loginUser({ email: this.email, password: this.password }));
+  }
+
+  onSubmit() {
+    this.login();
+  }
 }
-
-
-

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink, RouterModule, RouterOutlet} from '@angular/router';
 import { DarkLightService } from '../../services/dark-light-mode/dark-light.service';
-import {UserInfo} from '../../model/UserInfo';
+import {UserRegister} from '../../model/UserRegister';
 
 @Component({
   selector: 'app-sidebar',
