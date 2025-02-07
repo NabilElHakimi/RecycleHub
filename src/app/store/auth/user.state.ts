@@ -1,5 +1,5 @@
 import {AuthState} from './user.reducer';
 
-export interface AppState {
+export interface UserState {
   auth: AuthState;
 }

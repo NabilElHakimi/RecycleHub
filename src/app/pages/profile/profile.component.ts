@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from '../../store/auth/user.selectors';
 import { UserRegister } from '../../model/UserRegister';
-import { AppState } from '../../store/auth/app.state';
-import {DatePipe} from '@angular/common'; // Importer AppState
+import { UserState } from '../../store/auth/./user.state';
+import {DatePipe} from '@angular/common'; // Importer UserState
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
 
   userConnect: UserRegister | null = null;
 
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store<UserState>, private router: Router) {}
 
   ngOnInit(): void {
     this.store.select(selectCurrentUser).subscribe(user => {

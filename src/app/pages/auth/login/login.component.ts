@@ -4,7 +4,7 @@ import {Router, RouterLink} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loginUser } from '../../../store/auth/user.actions';
 import { selectCurrentUser } from '../../../store/auth/user.selectors';
-import {AppState} from '../../../store/auth/app.state';
+import {UserState} from '../../../store/auth/./user.state';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +22,7 @@ export class LoginComponent {
   password = "";
   users$;
 
-  constructor(private store: Store<AppState>, private router: Router) {
+  constructor(private store: Store<UserState>, private router: Router) {
     this.users$ = this.store.select(selectCurrentUser);
 
     this.users$.subscribe(user => {
