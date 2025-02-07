@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { registerUser, registerSuccess, loginUser, loginSuccess } from './user.actions';
+import { registerUser, registerSuccess, loginUser, loginSuccess, logout } from './user.actions';
 import { UserRegister } from '../../model/UserRegister';
 
 export interface AuthState {
@@ -38,5 +38,14 @@ export const authReducer = createReducer(
   on(loginSuccess, (state, { user }) => ({
     ...state,
     currentUser: user
-  }))
+  })),
+
+  on(logout, (state) => {
+    localStorage.removeItem('userConnect');
+
+    return {
+      ...state,
+      currentUser: null
+    };
+  })
 );

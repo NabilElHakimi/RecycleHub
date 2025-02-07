@@ -20,3 +20,5 @@ export const loginSuccess = createAction(
   '[Auth] Login Success',
   props<{ user: UserRegister }>()
 );
+
+export const logout = createAction('[Auth] Logout');
