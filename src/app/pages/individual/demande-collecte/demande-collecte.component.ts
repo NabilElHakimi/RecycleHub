@@ -15,7 +15,7 @@ interface CollecteItem {
   image?: string;
   notes: string;
   status: 'pending' | 'occupied' | 'inProgress' | 'validated' | 'rejected';
-  user: UserRegister | null; // Change to UserRegister or null
+  user: UserRegister | null;
 }
 
 @Component({
