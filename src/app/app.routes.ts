@@ -7,18 +7,20 @@ import {HomeComponent} from './pages/home/home.component';
 import {ProfileComponent} from './pages/profile/profile.component';
 import {RegisterComponent} from './pages/auth/register/register.component';
 import {LoginComponent} from './pages/auth/login/login.component';
+import {authGuard} from './guards/auth/auth.guard';
 
 export const routes: Routes = [
 
   {
     path: '',
     component : SidebarComponent,
+    canActivate : [authGuard] ,
     children : [
-       {path: '', redirectTo: 'home', pathMatch: 'full'},
        {path : 'home' , component : HomeComponent },
        {path : 'profile' , component : ProfileComponent },
        {path : 'collects' , component : CollectsComponent },
        {path : 'demand-collect' , component : DemandeCollecteComponent },
+       {path: '', redirectTo: 'home', pathMatch: 'full'},
     ]
   },
   {
@@ -28,6 +30,11 @@ export const routes: Routes = [
   {
     path: 'login',
     component : LoginComponent
-  }
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
 
 ];

@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {provideRouter, withComponentInputBinding} from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
@@ -16,5 +16,7 @@ export const appConfig: ApplicationConfig = {
          auth : authReducer
        }
      ),
-     provideEffects()]
+     provideEffects() ,
+      provideRouter(routes , withComponentInputBinding())
+  ]
 };
