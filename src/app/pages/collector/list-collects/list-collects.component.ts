@@ -1,19 +1,21 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import {CommonModule, DatePipe} from "@angular/common";
 import Swal from 'sweetalert2';
+import {FormsModule} from '@angular/forms';
 
 @Component({
-  selector: 'app-collects',
-  templateUrl: './collects.component.html',
-  styleUrls: ['./collects.component.css'],
-  imports: [FormsModule, CommonModule]
+  selector: 'app-list-collects',
+  imports: [FormsModule, CommonModule] ,
+
+  templateUrl: './list-collects.component.html',
+  styleUrl: './list-collects.component.css'
 })
-export class CollectsComponent implements OnInit {
+export class ListCollectsComponent {
   collects: any[] = [];
   showPopup = false;
   itemToDelete: any;
   darkMode: boolean = false;
+
 
   ngOnInit() {
     this.loadCollects();

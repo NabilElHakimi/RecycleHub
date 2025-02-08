@@ -27,7 +27,7 @@ export class LoginComponent {
 
     this.users$.subscribe(user => {
       if (user) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['particular//home']);
       }
     });
   }
