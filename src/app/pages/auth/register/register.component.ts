@@ -36,7 +36,8 @@ export class RegisterComponent {
       password: this.password,
       telephone: this.telephone,
       address: this.address,
-      create_at:new Date()
+      create_at:new Date() ,
+      role : "particular" ,
     };
 
     this.store.dispatch(registerUser({ user: newUser }));

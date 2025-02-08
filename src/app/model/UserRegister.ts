@@ -4,5 +4,6 @@ export interface UserRegister {
   password : string;
   telephone : string;
   address : string;
+  role : "collector" | "particular" ;
   create_at : Date;
 }

@@ -8,18 +8,19 @@ import {ProfileComponent} from './pages/profile/profile.component';
 import {RegisterComponent} from './pages/auth/register/register.component';
 import {LoginComponent} from './pages/auth/login/login.component';
 import {authGuard} from './guards/auth/auth.guard';
+import {checkRoleGuard} from './guards/checkRole/check-role.guard';
 
 export const routes: Routes = [
 
   {
     path: '',
     component : SidebarComponent,
-    canActivate : [authGuard] ,
+    canActivate : [authGuard],
     children : [
-       {path : 'home' , component : HomeComponent },
-       {path : 'profile' , component : ProfileComponent },
-       {path : 'collects' , component : CollectsComponent },
-       {path : 'demand-collect' , component : DemandeCollecteComponent },
+       {path : 'home' , component : HomeComponent , canActivate : [authGuard ] },
+       {path : 'profile' , component : ProfileComponent  , canActivate : [authGuard , checkRoleGuard] },
+       {path : 'collects' , component : CollectsComponent  , canActivate : [authGuard]},
+       {path : 'demand-collect' , component : DemandeCollecteComponent , canActivate : [authGuard] },
        {path: '', redirectTo: 'home', pathMatch: 'full'},
     ]
   },
