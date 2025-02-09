@@ -71,7 +71,7 @@ export class DemandeCollecteComponent {
         datetime: this.datetime,
         notes: this.notes,
         status: 'pending',
-        user: user, // Use user directly (null or UserRegister)
+        user: user,
       };
 
       if (this.imageBase64) {

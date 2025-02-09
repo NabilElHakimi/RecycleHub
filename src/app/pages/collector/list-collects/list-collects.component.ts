@@ -94,4 +94,20 @@ export class ListCollectsComponent {
       this.closePopup();
     }
   }
+
+
+  updateStatus(item: any) {
+    const index = this.collects.findIndex(col => col.id === item.id);
+
+    if (index !== -1) {
+      this.collects[index].status = item.status;
+      localStorage.setItem('collecteData', JSON.stringify(this.collects));
+      console.log('Nouveau statut sauvegardé:', item.status);
+    }
+  }
+
+
+
+
+
 }
