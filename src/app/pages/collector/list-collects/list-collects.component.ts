@@ -1,21 +1,19 @@
-import { Component } from '@angular/core';
-import {CommonModule, DatePipe} from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-list-collects',
-  imports: [FormsModule, CommonModule] ,
-
+  imports: [FormsModule, CommonModule],
   templateUrl: './list-collects.component.html',
-  styleUrl: './list-collects.component.css'
+  styleUrls: ['./list-collects.component.css']
 })
-export class ListCollectsComponent {
+export class ListCollectsComponent implements OnInit {
   collects: any[] = [];
   showPopup = false;
   itemToDelete: any;
   darkMode: boolean = false;
-
 
   ngOnInit() {
     this.loadCollects();
@@ -24,7 +22,6 @@ export class ListCollectsComponent {
 
   loadCollects() {
     const collectsData = localStorage.getItem('collecteData');
-
     if (collectsData) {
       this.collects = JSON.parse(collectsData);
       this.collects.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
@@ -35,8 +32,6 @@ export class ListCollectsComponent {
     const darkModeSetting = localStorage.getItem('darkMode');
     this.darkMode = darkModeSetting === 'enabled';
   }
-
-
 
   showConfirmationPopup(item: any) {
     this.itemToDelete = item;
@@ -84,30 +79,37 @@ export class ListCollectsComponent {
 
   deleteItem() {
     if (this.itemToDelete) {
-      const index = this.collects.findIndex(item => item.id === this.itemToDelete);
-
+      const index = this.collects.findIndex(item => item.id === this.itemToDelete.id);
       if (index !== -1) {
         this.collects.splice(index, 1);
         localStorage.setItem('collecteData', JSON.stringify(this.collects));
       }
-
       this.closePopup();
     }
   }
 
-
-  updateStatus(item: any) {
+  updateStatus(event: Event, item: any) {
     const index = this.collects.findIndex(col => col.id === item.id);
-
     if (index !== -1) {
-      this.collects[index].status = item.status;
-      localStorage.setItem('collecteData', JSON.stringify(this.collects));
-      console.log('Nouveau statut sauvegardé:', item.status);
+      const oldStatus = this.collects[index].status;
+      const newStatus = (event.target as HTMLSelectElement).value;
+
+      const confirmation = window.confirm(
+        `Are you sure you want to change the status to "${newStatus}"?`
+      );
+
+      if (confirmation) {
+        this.collects[index].status = newStatus;
+        localStorage.setItem('collecteData', JSON.stringify(this.collects));
+        console.log('New status saved:', newStatus);
+      } else {
+        // Restaurer l'ancien statut dans le modèle lié à 'ngModel'
+        item.status = oldStatus;
+      }
     }
   }
 
-
-
-
-
+  trackByFn(index: number, item: any) {
+    return item.id; // Utilisez une propriété unique de l'élément pour le suivi
+  }
 }
