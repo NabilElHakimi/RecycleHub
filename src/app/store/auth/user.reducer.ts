@@ -1,11 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import { registerUser, registerSuccess, loginUser, loginSuccess, logout } from './user.actions';
 import { UserRegister } from '../../model/UserRegister';
-
+import {routes} from '../../app.routes';
 export interface AuthState {
   users: UserRegister[];
   currentUser: UserRegister | null;
 }
+
 
 const initialState: AuthState = {
   users: JSON.parse(localStorage.getItem('users') || '[]'),
@@ -13,6 +14,7 @@ const initialState: AuthState = {
 };
 
 export const authReducer = createReducer(
+
   initialState,
 
   on(registerUser, (state, { user }) => {
@@ -32,6 +34,7 @@ export const authReducer = createReducer(
       localStorage.setItem('userConnect', JSON.stringify(user));
       return { ...state, currentUser: user };
     }
+    else alert('User not exist')
     return state;
   }),
 

@@ -27,7 +27,7 @@ export class LoginComponent {
 
     this.users$.subscribe(user => {
       if (user) {
-        this.router.navigate(['particular//home']);
+        this.router.navigate(['particular/home']);
       }
     });
   }
@@ -37,10 +37,13 @@ export class LoginComponent {
       alert("Veuillez remplir tous les champs !");
       return;
     }
+
     this.store.dispatch(loginUser({ email: this.email, password: this.password }));
   }
 
   onSubmit() {
     this.login();
   }
+
+
 }

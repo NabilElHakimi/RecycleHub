@@ -2,20 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { DarkLightService } from '../../services/dark-light-mode/dark-light.service';
 import { UserRegister } from '../../model/UserRegister';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { logout } from '../../store/auth/user.actions';
 import { Observable } from 'rxjs';
-import {UserState} from '../../store/auth/user.state';
-import {AsyncPipe} from '@angular/common';
+import { UserState } from '../../store/auth/user.state';
+import {AsyncPipe, NgIf} from '@angular/common';
+import { selectCurrentUser } from '../../store/auth/user.selectors'; // Assurez-vous d'importer le sélecteur
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterOutlet, RouterLink, RouterModule, AsyncPipe],
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, RouterModule, AsyncPipe, NgIf],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
   currentUser$!: Observable<UserRegister | null>;
 
   constructor(
@@ -25,7 +26,7 @@ export class SidebarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentUser$ = this.store.select(state => state.auth.currentUser);
+    this.currentUser$ = this.store.pipe(select(selectCurrentUser));
   }
 
   getNumberForParticular(): number {
@@ -41,5 +42,4 @@ export class SidebarComponent implements OnInit {
     this.store.dispatch(logout());
     this.router.navigate(['/login']);
   }
-
 }
