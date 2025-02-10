@@ -88,11 +88,10 @@ export class ListCollectsComponent implements OnInit {
     }
   }
 
-  updateStatus(event: Event, item: any) {
+  updateStatus(newStatus: string, item: any) {
     const index = this.collects.findIndex(col => col.id === item.id);
     if (index !== -1) {
       const oldStatus = this.collects[index].status;
-      const newStatus = (event.target as HTMLSelectElement).value;
 
       const confirmation = window.confirm(
         `Are you sure you want to change the status to "${newStatus}"?`
@@ -103,13 +102,13 @@ export class ListCollectsComponent implements OnInit {
         localStorage.setItem('collecteData', JSON.stringify(this.collects));
         console.log('New status saved:', newStatus);
       } else {
-        // Restaurer l'ancien statut dans le modèle lié à 'ngModel'
-        item.status = oldStatus;
+        this.collects[index].status = oldStatus;
       }
     }
   }
 
   trackByFn(index: number, item: any) {
-    return item.id; // Utilisez une propriété unique de l'élément pour le suivi
+    return item.id;
   }
+
 }

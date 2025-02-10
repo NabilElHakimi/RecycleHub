@@ -132,46 +132,54 @@
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
             <div class="relative">
-              <select
-                [(ngModel)]="item.status"
-                (change)="updateStatus($event, item)"
-                [ngClass]="{
-                    'w-full px-4 py-2 rounded-lg border appearance-none cursor-pointer transition-colors duration-200': true,
-                    'bg-yellow-100 text-yellow-800 border-yellow-300 hover:bg-yellow-200 dark:bg-yellow-900 dark:text-yellow-100 dark:border-yellow-700': item.status === 'pending',
-                    'bg-blue-100 text-blue-800 border-blue-300 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-100 dark:border-blue-700': item.status === 'occupied',
-                    'bg-orange-100 text-orange-800 border-orange-300 hover:bg-orange-200 dark:bg-orange-900 dark:text-orange-100 dark:border-orange-700': item.status === 'inProgress',
-                    'bg-green-100 text-green-800 border-green-300 hover:bg-green-200 dark:bg-green-900 dark:text-green-100 dark:border-green-700': item.status === 'validated',
-                    'bg-red-100 text-red-800 border-red-300 hover:bg-red-200 dark:bg-red-900 dark:text-red-100 dark:border-red-700': item.status === 'rejected'
-                  }"
-              >
-                <option value="pending" class="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100">Pending</option>
-                <option value="occupied" class="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100">Occupied</option>
-                <option value="inProgress" class="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100">In Progress</option>
-                <option value="validated" class="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100">Validated</option>
-                <option value="rejected" class="bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100">Rejected</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
-                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                  <path fill="currentColor" d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                </svg>
-              </div>
-            </div>
+              <span *ngIf="item.status"
+                    [ngClass]="{
+        'bg-yellow-50 text-yellow-800 ring-yellow-600/20': item.status === 'pending',
+        'bg-blue-50 text-blue-800 ring-blue-600/20': item.status === 'occupied',
+        'bg-green-50 text-green-800 ring-green-600/20': item.status === 'inProgress',
+        'bg-green-100 text-green-700 ring-green-600/20': item.status === 'validated',
+        'bg-red-50 text-red-800 ring-red-600/20': item.status === 'rejected'
+      }"
+                    class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset">
+  {{ item.status }}
+</span>
+        </div>
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
             <div class="flex justify-end gap-3">
-              <button class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                </svg>
-              </button>
+              <!-- Accept Button -->
               <button
-                (click)="showConfirmationPopup(item)"
-                class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                </svg>
+                *ngIf="item.status === 'pending'"
+                class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300"
+                (click)="updateStatus('occupied', item)">
+                Accept
+              </button>
+
+              <!-- Refuse Button -->
+              <button
+                *ngIf="item.status === 'pending'"
+                class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
+                (click)="updateStatus('rejected', item)">
+                Refuse
+              </button>
+
+              <!-- inProgress Button -->
+
+              <button
+                *ngIf="item.status === 'occupied'"
+                class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
+                (click)="updateStatus('inProgress', item)">
+                inProgress
+              </button>
+
+              <button
+                *ngIf="item.status === 'inProgress'"
+                class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
+                (click)="updateStatus('validate', item)">
+                Validated
               </button>
             </div>
+
           </td>
         </tr>
         </tbody>

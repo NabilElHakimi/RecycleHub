@@ -30,12 +30,15 @@ export const authReducer = createReducer(
 
   on(loginUser, (state, { email, password }) => {
     const user = state.users.find(u => u.email === email && u.password === password);
+    if(!user){
+      alert('User not exist')
+    }
     if (user) {
       localStorage.setItem('userConnect', JSON.stringify(user));
       return { ...state, currentUser: user };
     }
-    else alert('User not exist')
     return state;
+
   }),
 
   on(loginSuccess, (state, { user }) => ({

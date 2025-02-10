@@ -2,6 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import {async, Observable} from 'rxjs';
+import {UserRegister} from '../../../model/UserRegister';
+import {select, Store} from '@ngrx/store';
+import {selectCurrentUser} from '../../../store/auth/user.selectors';
 
 @Component({
   selector: 'app-collects',
@@ -15,9 +19,21 @@ export class CollectsComponent implements OnInit {
   itemToDelete: any;
   darkMode: boolean = false;
 
+  currentUser$: Observable<UserRegister | null>;
+  currentUser : UserRegister | null | undefined ;
+
+  constructor(private store : Store) {
+    this.currentUser$ = this.store.pipe(select(selectCurrentUser)) ;
+  }
+
   ngOnInit() {
     this.loadCollects();
     this.checkDarkMode();
+    this.currentUser$.subscribe(user => {
+           this.currentUser = user
+      }
+    )
+
   }
 
   loadCollects() {
@@ -92,4 +108,7 @@ export class CollectsComponent implements OnInit {
       this.closePopup();
     }
   }
+
+
+
 }
