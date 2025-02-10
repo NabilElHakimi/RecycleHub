@@ -49,8 +49,6 @@ export class CollectsComponent implements OnInit {
     this.darkMode = darkModeSetting === 'enabled';
   }
 
-
-
   showConfirmationPopup(item: any) {
     this.itemToDelete = item;
 
