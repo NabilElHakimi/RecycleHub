@@ -1,0 +1,92 @@
+[
+  {
+    "name": "John Doe",
+    "email": "admin@gmail.com",
+    "password": "123",
+    "telephone": "+1234567890",
+    "address": "123 Main St, New York, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:00:00Z"
+  },
+  {
+    "name": "Alice Smith",
+    "email": "alice.smith@example.com",
+    "password": "alicepass",
+    "telephone": "+1987654321",
+    "address": "456 Elm St, Los Angeles, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:05:00Z"
+  },
+  {
+    "name": "Robert Johnson",
+    "email": "robert.j@example.com",
+    "password": "robertpass",
+    "telephone": "+1122334455",
+    "address": "789 Pine St, Chicago, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:10:00Z"
+  },
+  {
+    "name": "Emma Brown",
+    "email": "emma.brown@example.com",
+    "password": "emmapass",
+    "telephone": "+1555666777",
+    "address": "159 Oak St, Houston, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:15:00Z"
+  },
+  {
+    "name": "Michael Davis",
+    "email": "michael.d@example.com",
+    "password": "michaelpass",
+    "telephone": "+1222444888",
+    "address": "753 Maple St, San Francisco, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:20:00Z"
+  },
+  {
+    "name": "Sophia Wilson",
+    "email": "sophia.w@example.com",
+    "password": "sophiapass",
+    "telephone": "+1666777999",
+    "address": "951 Cedar St, Miami, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:25:00Z"
+  },
+  {
+    "name": "William Martinez",
+    "email": "william.m@example.com",
+    "password": "williampass",
+    "telephone": "+1333444555",
+    "address": "852 Walnut St, Boston, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:30:00Z"
+  },
+  {
+    "name": "Olivia Anderson",
+    "email": "olivia.a@example.com",
+    "password": "oliviapass",
+    "telephone": "+1777888999",
+    "address": "357 Birch St, Seattle, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:35:00Z"
+  },
+  {
+    "name": "James Taylor",
+    "email": "james.t@example.com",
+    "password": "jamespass",
+    "telephone": "+1999000111",
+    "address": "246 Spruce St, Denver, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:40:00Z"
+  },
+  {
+    "name": "Charlotte White",
+    "email": "charlotte.w@example.com",
+    "password": "charlottepass",
+    "telephone": "+1444555666",
+    "address": "678 Redwood St, Austin, USA",
+    "role": "collector",
+    "create_at": "2024-08-17T10:45:00Z"
+  }
+]
