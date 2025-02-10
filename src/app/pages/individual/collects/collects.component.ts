@@ -41,10 +41,9 @@ export class CollectsComponent implements OnInit {
 
     if (collectsData) {
       this.collects = JSON.parse(collectsData);
-      this.collects.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
-  }
 
+  }
   checkDarkMode() {
     const darkModeSetting = localStorage.getItem('darkMode');
     this.darkMode = darkModeSetting === 'enabled';
